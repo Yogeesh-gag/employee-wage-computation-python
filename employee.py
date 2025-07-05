@@ -23,17 +23,25 @@ class Employee:
 
     def cal_monthly_wage(self):
         monthly_wage = 0
+        total_hours = 0
+        day = 1
+
         print(f"\nCalculating Monthly Wage for {self.name} (ID: {self.emp_id})")
-        for day in range(1, 21):
+        while day <= 20 and total_hours < 100:
             print(f"\nDay {day}:", end=" ")
-            if Employee.check_attendance(self.name, self.emp_id):
-                hours = Employee.get_random_working_hours()
-                daily = self.calculate_daily_wage(hours)
-                monthly_wage += daily
-                print(f"Present | Hours: {hours} | Daily Wage: {daily}")
+
+            if Employee.check_attendance(self.name,self.emp_id):
+                hours = self.get_random_working_hours()
+
+                daily_wage = self.calculate_daily_wage(hours)
+                monthly_wage += daily_wage
+                total_hours += hours
+                print(f"Present | Hours: {hours} | Daily Wage: {daily_wage} | Total Hours: {total_hours}")
             else:
-                print("Absent | Daily Wage: 0")
+                print(f"Absent | Daily Wage: 0")
+            day+=1
         print(f"\nTotal Monthly Wage for {self.name}: {monthly_wage}")
+        print(f"Total Working Days: {day - 1}, Total Hours: {total_hours}")
         return monthly_wage
 
     def calculate_daily_wage_match(self, hours, name, emp_id):
