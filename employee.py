@@ -13,12 +13,24 @@ class Employee:
         print(f"\nAttendance for {name} (ID: {emp_id}): {'Present' if attendance else 'Absent'}")
         return bool(attendance)
 
-    def calculate_daily_wage(self, hours, name, emp_id):
-        daily_wage = 0
-        if not self.check_attendance(name, emp_id):
-            print("Employee is Absent. Daily Wage: 0")
-            return daily_wage
-        else:
-            daily_wage = hours * self.wage_per_hour
-            print(f"Daily Wage: {daily_wage}")
-        return daily_wage
+    @staticmethod
+    def get_random_working_hours():
+        return random.randint(4, 12)
+
+    def calculate_daily_wage(self, hours,):
+         return  hours * self.wage_per_hour
+
+    def cal_monthly_wage(self):
+        monthly_wage = 0
+        print(f"\nCalculating Monthly Wage for {self.name} (ID: {self.emp_id})")
+        for day in range(1, 31):
+            print(f"\nDay {day}:", end=" ")
+            if Employee.check_attendance(self.name, self.emp_id):
+                hours = Employee.get_random_working_hours()
+                daily = self.calculate_daily_wage(hours)
+                monthly_wage += daily
+                print(f"Present | Hours: {hours} | Daily Wage: {daily}")
+            else:
+                print("Absent | Daily Wage: 0")
+        print(f"\nTotal Monthly Wage for {self.name}: {monthly_wage}")
+        return monthly_wage
