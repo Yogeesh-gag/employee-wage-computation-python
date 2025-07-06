@@ -21,7 +21,7 @@ class Employee:
         return hours * self.wage_per_hour
 
 
-    def cal_monthly_wage(self):
+    def calculate_monthly_wage(self):
         monthly_wage = 0
         total_hours = 0
         day = 1
@@ -32,7 +32,6 @@ class Employee:
 
             if Employee.check_attendance(self.name,self.emp_id):
                 hours = self.get_random_working_hours()
-
                 daily_wage = self.calculate_daily_wage(hours)
                 monthly_wage += daily_wage
                 total_hours += hours
